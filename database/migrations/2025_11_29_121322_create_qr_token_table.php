@@ -13,11 +13,18 @@ return new class extends Migration
     {
         Schema::create('qr_token', function (Blueprint $table) {
             $table->id();
+        
+            $table->foreignId('pengguna_id')
+                  ->constrained('users')
+                  ->onDelete('cascade');
+        
             $table->string('token')->unique();
             $table->boolean('status_aktif')->default(true);
             $table->dateTime('waktu_kedaluwarsa');
+        
             $table->timestamps();
         });
+        
     }
     
     /**
