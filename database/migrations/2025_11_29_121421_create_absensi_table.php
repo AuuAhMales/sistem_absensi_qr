@@ -14,15 +14,20 @@ return new class extends Migration
         Schema::create('absensi', function (Blueprint $table) {
             $table->id();
         
-            $table->foreignId('pengguna_id')->constrained('users');
-            $table->foreignId('siswa_id')->constrained('siswa');
-            $table->foreignId('qr_token_id')->constrained('qr_token');
+            $table->foreignId('siswa_id')
+                ->constrained('siswa')
+                ->cascadeOnDelete();
+        
+            $table->foreignId('qr_token_id')
+                ->constrained('qr_token')
+                ->cascadeOnDelete();
         
             $table->dateTime('waktu_absen');
-            $table->string('status');
+            $table->string('status')->default('hadir');
         
             $table->timestamps();
         });
+        
     }
     
 
